@@ -1,0 +1,24 @@
+[
+  {
+    "id": "editor-lrc",
+    "name": "Editor LRC Pro",
+    "creator": "Nuninano",
+    "type": "tool",
+    "url": "https://nuninano.github.io/Editor-LRC/",
+    "version": "v5",
+    "description": "Editor y sincronizador avanzado de letras (.LRC) con inyección de metadatos ID3v2.",
+    "compliant": true,
+    "category": "utilidad"
+  },
+  {
+    "id": "comunidad-game-1",
+    "name": "Pixel Runner",
+    "creator": "AlexDev",
+    "type": "game",
+    "url": "https://ejemplo.github.io/pixel-runner/",
+    "version": "v1.0",
+    "description": "Juego retro de plataformas enviado por la comunidad.",
+    "compliant": false,
+    "category": "arcade"
+  }
+]
