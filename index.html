@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta name="google-site-verification" content="kY9kScY7Ylx-RqRbYpUiAQNyfvbkqsEQ8K7rkvZjlZ0" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nuninano</title>
 
-<!-- Favicon SVG -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
-
-<!-- Configuración PWA -->
+<!-- PWA Manifest & Meta Tags -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#181818">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nuninano">
+
+<!-- Favicon SVG -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E">
 
 <style>
 :root {
@@ -747,15 +751,16 @@ let currentRedirectTarget = "https://nuninano.github.io/Editor-LRC/";
 window.addEventListener("DOMContentLoaded", () => {
   loadAndApplySettings();
   checkAutoRedirectOnLoad();
+  registerServiceWorker();
 });
 
-// Registro del Service Worker para PWA
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+// Registro de Service Worker para PWA
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('Service Worker registrado con éxito'))
-      .catch((err) => console.error('Error al registrar Service Worker:', err));
-  });
+      .then(reg => console.log('Service Worker registrado con éxito:', reg.scope))
+      .catch(err => console.error('Error al registrar el Service Worker:', err));
+  }
 }
 
 // Lógica del Selector Personalizado No Nativo (Extraído de Editor LRC Pro)

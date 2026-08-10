@@ -1,0 +1,18 @@
+{
+  "name": "Nuninano",
+  "short_name": "Nuninano",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#181818",
+  "orientation": "portrait-primary",
+  "description": "Nuninano Hub y Editor LRC Pro",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
