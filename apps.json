@@ -11,14 +11,14 @@
     "category": "utilidad"
   },
   {
-    "id": "Batalla-Sans",
-    "name": "Bad Time Simulator",
-    "creator": "jcw87",
+    "id": "comunidad-game-1",
+    "name": "Pixel Runner",
+    "creator": "AlexDev",
     "type": "game",
     "url": "https://jcw87.github.io/c2-sans-fight/",
-    "version": "",
-    "description": "Simulador de batalla contra Sans de la rura Genocida de Undertale",
+    "version": "v1.0",
+    "description": "Juego retro de plataformas enviado por la comunidad.",
     "compliant": true,
-    "category": "RPG"
+    "category": "arcade"
   }
 ]

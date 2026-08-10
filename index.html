@@ -506,7 +506,7 @@ input:checked + .slider:before { transform: translateX(18px); background-color: 
 
 .btn-danger { background: #991b1b; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-/* Contenedor Sandbox para juegos no adaptados */
+/* Contenedor Sandbox */
 .sandbox-container {
   width: 100%;
   max-width: 1000px;
@@ -603,7 +603,7 @@ footer {
 </main>
 
 <footer>
-  © Nuninano — Todos los derechos reservados.
+  Nuninano Hub — Plataforma abierta para la comunidad
 </footer>
 
 <!-- Modal Configuración del Hub -->
@@ -703,7 +703,9 @@ function registerServiceWorker() {
 
 async function loadApps() {
   try {
-    const res = await fetch('apps.json');
+    // Petición obligatoria sin caché para evitar congelamiento de apps.json
+    const res = await fetch('apps.json', { cache: 'no-cache' });
+    if (!res.ok) throw new Error("Error en servidor");
     apps = await res.json();
   } catch (e) {
     apps = [{
@@ -938,3 +940,4 @@ function handleOverlayClick(e, modalId) {
 
 </body>
 </html>
+
