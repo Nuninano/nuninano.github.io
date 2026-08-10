@@ -14,7 +14,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nuninano">
 
+<!-- Favicon SVG -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E">
 
 <style>
 :root {
@@ -26,12 +28,15 @@
   --bg-input: #0a0a0a;
   --bg-btn-sec: #222;
   --border-color: #262626;
+  --border-input: #2a2a2a;
   --border-btn: #333;
   --text-main: #ffffff;
   --text-muted: #888888;
+  --text-btn: #aaaaaa;
   --accent-color: #00ffd5;
   --accent-btn: #00a884;
   --accent-hover: #00ffd5;
+  --color-scheme: dark;
 }
 
 body.light-mode {
@@ -40,14 +45,18 @@ body.light-mode {
   --bg-card: #ffffff;
   --bg-card-active: #e6f7f3;
   --bg-card-hover: #f8fafc;
+  --bg-input: #f4f4f5;
   --bg-btn-sec: #e4e4e7;
   --border-color: #d4d4d8;
+  --border-input: #d4d4d8;
   --border-btn: #cbd5e1;
   --text-main: #18181b;
   --text-muted: #71717a;
+  --text-btn: #3f3f46;
   --accent-color: #008a6e;
   --accent-btn: #008a6e;
   --accent-hover: #006e58;
+  --color-scheme: light;
 }
 
 body.pure-black-mode {
@@ -56,27 +65,34 @@ body.pure-black-mode {
   --bg-card: #050505;
   --bg-card-active: #00221c;
   --bg-card-hover: #0c0c0c;
+  --bg-input: #000000;
   --bg-btn-sec: #111111;
   --border-color: #1c1c1c;
+  --border-input: #222222;
   --border-btn: #222222;
   --text-main: #ffffff;
   --text-muted: #666666;
+  --text-btn: #888888;
   --accent-color: #00ffd5;
   --accent-btn: #00a884;
+  --accent-hover: #00ffd5;
+  --color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--bg-body);
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+/* Header */
 header {
   padding: 14px 24px;
   display: flex;
@@ -84,10 +100,20 @@ header {
   align-items: center;
   background: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
+  color: var(--text-muted);
 }
 
 .header-brand { display: flex; align-items: center; gap: 8px; }
-.header-title { font-size: 15px; font-weight: 700; color: var(--text-muted); }
+.header-brand svg { display: block; flex-shrink: 0; }
+
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+
+.header-actions { display: flex; gap: 8px; align-items: center; }
 
 .icon-btn {
   background: var(--bg-btn-sec);
@@ -97,9 +123,22 @@ header {
   font-size: 13px;
   border-radius: 6px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
 }
 
+.icon-btn:hover {
+  background: var(--border-btn);
+  transform: translateY(-1px);
+}
+
+.icon-btn:active { transform: translateY(0) scale(0.96); }
+
+/* Main Container */
 main {
   flex: 1;
   max-width: 900px;
@@ -111,12 +150,54 @@ main {
   gap: 28px;
 }
 
+/* Banner de Redirección */
+.redirect-banner {
+  display: none;
+  background: var(--bg-card-active);
+  border: 1px solid var(--accent-btn);
+  border-radius: 8px;
+  padding: 12px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-main);
+  animation: slideUpFade 0.25s ease-out forwards;
+  flex-wrap: wrap;
+}
+
+.redirect-info { display: flex; align-items: center; gap: 10px; text-align: left; }
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-color);
+  animation: pulse 1.8s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 213, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 255, 213, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 213, 0); }
+}
+
+.redirect-timer {
+  font-weight: 700;
+  color: var(--accent-color);
+  font-family: monospace;
+}
+
+/* Projects Section */
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
   font-weight: 700;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border-color);
@@ -129,6 +210,7 @@ main {
   gap: 16px;
 }
 
+/* Project Card */
 .project-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -136,18 +218,25 @@ main {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 14px;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUpFade 0.35s ease-out forwards;
 }
 
 .project-card:hover {
+  transform: translateY(-2px);
   border-color: var(--accent-btn);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   background: var(--bg-card-hover);
 }
+
+.project-title-group { display: flex; flex-direction: column; gap: 2px; }
 
 .project-title {
   font-size: 18px;
   font-weight: 700;
+  color: var(--text-main);
   margin: 0;
   display: flex;
   align-items: center;
@@ -158,8 +247,16 @@ main {
   font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
-  margin-top: 2px;
-  display: block;
+}
+
+.project-version {
+  font-size: 11px;
+  color: var(--accent-color);
+  font-family: monospace;
+  background: rgba(0, 255, 213, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 213, 0.2);
 }
 
 .badge {
@@ -173,11 +270,25 @@ main {
 .badge-compliant { background: rgba(0, 255, 213, 0.15); color: var(--accent-color); border: 1px solid var(--accent-btn); }
 .badge-non-compliant { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid #991b1b; }
 
-.project-desc { font-size: 13px; color: var(--text-muted); margin: 0; }
+.project-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
 
 .btn-primary {
   background: var(--accent-btn);
-  color: #fff;
+  color: #ffffff;
   padding: 8px 16px;
   font-size: 13px;
   font-weight: 700;
@@ -185,22 +296,217 @@ main {
   border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
+.btn-primary:hover {
+  background: var(--accent-hover);
+  color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 255, 213, 0.3);
+}
+
+.btn-primary:active { transform: translateY(0) scale(0.97); }
+
+/* Keyframes de Animaciones */
+@keyframes modalBackdropFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleUp {
+  from { opacity: 0; transform: scale(0.92) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modales */
 .modal-overlay {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(6px);
-  z-index: 300;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.modal-overlay.open { display: flex; }
+.modal-overlay.open {
+  display: flex;
+  opacity: 1;
+  animation: modalBackdropFade 0.2s ease forwards;
+}
 
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 380px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(0.92);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.open .modal-card {
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.setting-group {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.setting-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Selector Personalizado No Nativo */
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  background: var(--bg-input);
+  color: var(--accent-color);
+  border: 1px solid var(--border-btn);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.custom-select-trigger:hover { border-color: var(--accent-color); }
+.custom-select-trigger .arrow { font-size: 10px; transition: transform 0.2s ease; }
+.custom-select.open .arrow { transform: rotate(180deg); }
+
+.custom-select-options {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-btn);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 250;
+  overflow: hidden;
+}
+
+.custom-select.open .custom-select-options {
+  display: block;
+  animation: slideUpFade 0.15s ease-out;
+}
+
+.custom-option {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.custom-option:hover { background: var(--bg-btn-sec); color: var(--accent-color); }
+.custom-option.selected { background: var(--bg-card-active); color: var(--accent-color); }
+
+/* Switches */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--bg-btn-sec);
+  border: 1px solid var(--border-btn);
+  transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 22px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text-btn);
+  transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
+}
+
+input:checked + .slider { background-color: var(--accent-btn); border-color: var(--accent-btn); }
+input:checked + .slider:before { transform: translateX(18px); background-color: #ffffff; }
+
+.btn-danger { background: #991b1b; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+/* Contenedor Sandbox para juegos no adaptados */
 .sandbox-container {
   width: 100%;
   max-width: 1000px;
@@ -222,12 +528,7 @@ main {
   align-items: center;
 }
 
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #000;
-}
+iframe { width: 100%; height: 100%; border: none; background: #000; }
 
 footer {
   text-align: center;
@@ -239,8 +540,18 @@ footer {
   margin-top: auto;
 }
 
+/* Adaptación para Escritorio */
 @media (min-width: 900px) {
-  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  header { padding: 16px 40px; }
+  main { max-width: 1000px; padding: 40px 24px; }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .project-card { padding: 22px; }
+}
+
+@media (max-width: 600px) {
+  main { padding: 20px 14px; gap: 20px; }
+  .redirect-banner { flex-direction: column; align-items: stretch; text-align: center; }
+  .redirect-info { justify-content: center; }
 }
 </style>
 </head>
@@ -260,19 +571,88 @@ footer {
     </svg>
     <span class="header-title">Nuninano Hub</span>
   </div>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="toggleModal('settingsModal', true)" aria-label="Configuración">⚙</button>
+  </div>
 </header>
 
 <main>
-  <section>
+  <!-- Banner de Redirección Automática -->
+  <div id="redirectBanner" class="redirect-banner">
+    <div class="redirect-info">
+      <div class="pulse-dot"></div>
+      <div>
+        Te redireccionaremos en <span id="timer" class="redirect-timer">3</span> segundos...
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button class="icon-btn" onclick="cancelRedirect()" id="cancelBtn" style="font-size: 11px; padding: 4px 8px;">Cancelar</button>
+      <a id="redirectNowBtn" href="#" class="btn-primary" style="padding: 6px 12px; font-size: 12px;">Ir Ahora ↗</a>
+    </div>
+  </div>
+
+  <!-- Lista Dinámica de Proyectos -->
+  <section style="display: flex; flex-direction: column; gap: 14px;">
     <div class="section-header">
       <span>Explorar Contenido</span>
       <span id="appCountTag">0 Cargados</span>
     </div>
+
     <div class="projects-grid" id="projectsGrid"></div>
   </section>
 </main>
 
-<footer>© Nuninano — Todos los derechos reservados.</footer>
+<footer>
+  © Nuninano — Todos los derechos reservados.
+</footer>
+
+<!-- Modal Configuración del Hub -->
+<div id="settingsModal" class="modal-overlay" onclick="handleOverlayClick(event, 'settingsModal')">
+  <div class="modal-card">
+    <div class="modal-header">
+      <span class="modal-title">Configuración</span>
+      <button class="btn-danger" onclick="toggleModal('settingsModal', false)">✕</button>
+    </div>
+
+    <div class="setting-row">
+      <span>Modo oscuro</span>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" onchange="saveAndApplySettings()">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-row">
+      <span>Negro puro</span>
+      <label class="switch">
+        <input type="checkbox" id="pureBlackToggle" onchange="saveAndApplySettings()">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-row" style="margin-bottom: 0;">
+        <span>Redirección automática</span>
+        <label class="switch">
+          <input type="checkbox" id="autoRedirectToggle" onchange="saveAndApplySettings()">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div id="redirectTargetContainer" style="display: none; flex-direction: column; gap: 6px;">
+        <span class="setting-label">Destino de redirección</span>
+        
+        <div class="custom-select" id="customRedirectSelect">
+          <button type="button" class="custom-select-trigger" onclick="toggleCustomSelect(event)">
+            <span id="customRedirectText">Seleccionar...</span>
+            <span class="arrow">▾</span>
+          </button>
+          <div class="custom-select-options" id="customRedirectOptions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Sandbox (Juegos no adaptados) -->
 <div id="sandboxModal" class="modal-overlay">
@@ -300,32 +680,50 @@ footer {
 </div>
 
 <script>
+let countdown = 3;
+let redirectInterval = null;
+let isCancelled = false;
+let currentRedirectTarget = "";
 let apps = [];
 
-window.addEventListener("DOMContentLoaded", () => {
-  loadApps();
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadApps();
+  loadAndApplySettings();
+  checkAutoRedirectOnLoad();
+  registerServiceWorker();
 });
+
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registrado:', reg.scope))
+      .catch(err => console.error('Error en Service Worker:', err));
+  }
+}
 
 async function loadApps() {
   try {
     const res = await fetch('apps.json');
     apps = await res.json();
   } catch (e) {
-    apps = [
-      {
-        id: "editor-lrc",
-        name: "Editor LRC Pro",
-        creator: "Nuninano",
-        type: "tool",
-        url: "https://nuninano.github.io/Editor-LRC/",
-        version: "v5",
-        description: "Editor y sincronizador avanzado de letras (.LRC).",
-        compliant: true
-      }
-    ];
+    apps = [{
+      id: "editor-lrc",
+      name: "Editor LRC Pro",
+      creator: "Nuninano",
+      type: "tool",
+      url: "https://nuninano.github.io/Editor-LRC/",
+      version: "v5",
+      description: "Editor y sincronizador avanzado de letras (.LRC).",
+      compliant: true
+    }];
   }
+
+  if (!currentRedirectTarget && apps.length > 0) {
+    currentRedirectTarget = apps[0].url;
+  }
+
   renderApps();
+  populateRedirectDropdown();
 }
 
 function renderApps() {
@@ -335,14 +733,19 @@ function renderApps() {
 
   apps.sort((a, b) => (b.compliant === a.compliant) ? 0 : a.compliant ? -1 : 1);
 
-  apps.forEach(app => {
+  apps.forEach((app, index) => {
     const card = document.createElement("div");
     card.className = "project-card";
+    card.style.animationDelay = `${index * 0.05}s`;
+    
     card.innerHTML = `
-      <div>
-        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-          <div>
-            <h2 class="project-title">${app.name}</h2>
+      <div class="project-header">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; width:100%;">
+          <div class="project-title-group">
+            <h2 class="project-title">
+              ${app.name}
+              <span class="project-version">${app.version || 'v1.0'}</span>
+            </h2>
             <span class="project-creator">por ${app.creator || 'Anónimo'}</span>
           </div>
           <span class="badge ${app.compliant ? 'badge-compliant' : 'badge-non-compliant'}">
@@ -351,12 +754,34 @@ function renderApps() {
         </div>
         <p class="project-desc" style="margin-top:10px;">${app.description}</p>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:11px; color:var(--text-muted); font-family:monospace;">${app.type.toUpperCase()}</span>
-        <button class="btn-primary" onclick="launchApp('${app.id}')">Abrir ↗</button>
+
+      <div class="project-footer">
+        <span style="font-size: 11px; color: var(--text-muted); font-family: monospace;">${app.type.toUpperCase()}</span>
+        <button class="btn-primary" onclick="launchApp('${app.id}')">
+          Abrir ↗
+        </button>
       </div>
     `;
     grid.appendChild(card);
+  });
+}
+
+function populateRedirectDropdown() {
+  const optionsContainer = document.getElementById("customRedirectOptions");
+  if (!optionsContainer) return;
+  optionsContainer.innerHTML = "";
+
+  apps.forEach(app => {
+    const opt = document.createElement("div");
+    opt.className = `custom-option ${app.url === currentRedirectTarget ? 'selected' : ''}`;
+    opt.setAttribute("data-value", app.url);
+    opt.textContent = `${app.name} (${app.creator || 'Anónimo'})`;
+    opt.onclick = () => selectRedirectOption(app.url, app.name, opt);
+    optionsContainer.appendChild(opt);
+
+    if (app.url === currentRedirectTarget) {
+      document.getElementById("customRedirectText").textContent = app.name;
+    }
   });
 }
 
@@ -388,8 +813,126 @@ function closeSandbox() {
   toggleModal('sandboxModal', false);
 }
 
-function toggleModal(id, show) {
-  document.getElementById(id).classList.toggle('open', show);
+/* Manejo de Dropdown Custom */
+function toggleCustomSelect(event) {
+  event.stopPropagation();
+  let container = document.getElementById("customRedirectSelect");
+  container.classList.toggle("open");
+}
+
+function selectRedirectOption(value, text, element) {
+  currentRedirectTarget = value;
+  document.getElementById("customRedirectText").textContent = text;
+
+  document.querySelectorAll("#customRedirectSelect .custom-option").forEach(opt => opt.classList.remove("selected"));
+  element.classList.add("selected");
+
+  document.getElementById("customRedirectSelect").classList.remove("open");
+  saveAndApplySettings();
+}
+
+window.addEventListener("click", () => {
+  let container = document.getElementById("customRedirectSelect");
+  if (container) container.classList.remove("open");
+});
+
+/* Ajustes de Configuración */
+function loadAndApplySettings() {
+  let savedDark = localStorage.getItem("hub_theme_dark");
+  let savedPureBlack = localStorage.getItem("hub_theme_pure_black");
+  let savedAutoRedirect = localStorage.getItem("hub_auto_redirect");
+  let savedRedirectTarget = localStorage.getItem("hub_redirect_target");
+
+  let isDark = savedDark !== null ? savedDark === "true" : true;
+  let isPureBlack = savedPureBlack !== null ? savedPureBlack === "true" : false;
+  let isAutoRedirect = savedAutoRedirect !== null ? savedAutoRedirect === "true" : false;
+  if (savedRedirectTarget) currentRedirectTarget = savedRedirectTarget;
+
+  document.getElementById("darkModeToggle").checked = isDark;
+  document.getElementById("pureBlackToggle").checked = isPureBlack;
+  document.getElementById("autoRedirectToggle").checked = isAutoRedirect;
+
+  applyTheme(isDark, isPureBlack);
+  toggleRedirectContainerUI(isAutoRedirect);
+}
+
+function saveAndApplySettings() {
+  let isDark = document.getElementById("darkModeToggle").checked;
+  let isPureBlack = document.getElementById("pureBlackToggle").checked;
+  let isAutoRedirect = document.getElementById("autoRedirectToggle").checked;
+
+  localStorage.setItem("hub_theme_dark", isDark);
+  localStorage.setItem("hub_theme_pure_black", isPureBlack);
+  localStorage.setItem("hub_auto_redirect", isAutoRedirect);
+  localStorage.setItem("hub_redirect_target", currentRedirectTarget);
+
+  applyTheme(isDark, isPureBlack);
+  toggleRedirectContainerUI(isAutoRedirect);
+
+  if (!isAutoRedirect) cancelRedirect();
+}
+
+function applyTheme(isDark, isPureBlack) {
+  let pureBlackToggle = document.getElementById("pureBlackToggle");
+  pureBlackToggle.disabled = !isDark;
+
+  document.body.classList.remove("light-mode", "pure-black-mode");
+
+  if (!isDark) {
+    document.body.classList.add("light-mode");
+  } else if (isPureBlack) {
+    document.body.classList.add("pure-black-mode");
+  }
+}
+
+function toggleRedirectContainerUI(show) {
+  let container = document.getElementById("redirectTargetContainer");
+  if (container) container.style.display = show ? "flex" : "none";
+}
+
+function checkAutoRedirectOnLoad() {
+  let savedAutoRedirect = localStorage.getItem("hub_auto_redirect");
+
+  if (savedAutoRedirect === "true" && currentRedirectTarget) {
+    let banner = document.getElementById("redirectBanner");
+    let nowBtn = document.getElementById("redirectNowBtn");
+    if (nowBtn) nowBtn.href = currentRedirectTarget;
+    if (banner) banner.style.display = "flex";
+
+    startCountdown(currentRedirectTarget);
+  }
+}
+
+function startCountdown(targetUrl) {
+  if (isCancelled) return;
+  let timerElement = document.getElementById("timer");
+  
+  redirectInterval = setInterval(() => {
+    countdown--;
+    if (timerElement) timerElement.textContent = countdown;
+
+    if (countdown <= 0) {
+      clearInterval(redirectInterval);
+      window.location.href = targetUrl;
+    }
+  }, 1000);
+}
+
+function cancelRedirect() {
+  isCancelled = true;
+  if (redirectInterval) clearInterval(redirectInterval);
+  let banner = document.getElementById("redirectBanner");
+  if (banner) banner.style.display = "none";
+}
+
+function toggleModal(modalId, show) {
+  let modal = document.getElementById(modalId);
+  if (show) modal.classList.add("open");
+  else modal.classList.remove("open");
+}
+
+function handleOverlayClick(e, modalId) {
+  if (e.target.id === modalId) toggleModal(modalId, false);
 }
 </script>
 
