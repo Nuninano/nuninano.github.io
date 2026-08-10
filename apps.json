@@ -7,18 +7,21 @@
     "url": "https://nuninano.github.io/Editor-LRC/",
     "version": "v5",
     "description": "Editor y sincronizador avanzado de letras (.LRC) con inyección de metadatos ID3v2.",
+    "icon": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect x='16' y='16' width='480' height='480' rx='108' fill='%23000000' stroke='%23333333' stroke-width='16'/%3E%3Cpath d='M 176 138 H 226 V 324 H 336 V 374 H 176 Z' fill='%23FFFFFF'/%3E%3C/svg%3E",
     "compliant": true,
     "category": "utilidad"
   },
   {
-    "id": "comunidad-game-1",
-    "name": "Pixel Runner",
-    "creator": "AlexDev",
+    "id": "bad-time-simulator",
+    "name": "Bad Time Simulator",
+    "creator": "jcw87",
     "type": "game",
     "url": "https://jcw87.github.io/c2-sans-fight/",
-    "version": "v1.0",
-    "description": "Juego retro de plataformas enviado por la comunidad.",
+    "version": "???",
+    "description": "Enfrentamiento contra Sans directamente en el navegador.",
+    "icon": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'><rect width='32' height='32' fill='%23000'/><path fill='%23fff' d='M10 1h12v1h3v1h2v1h2v1h1v1h1v2h1v9h-1v2h-1v1h-1v1h1v1h1v4h-1v1h-1v1h-2v1h-2v1h-3v1H10v-1H7v-1H5v-1H3v-1H2v-4h1v-1h1v-1h-1v-1h-1v-2H1V8h1V6h1V5h1V4h2V3h3V2h3V1z'/><path fill='%23000' d='M6 11h7v6H6zm13 0h7v6h-7zm-8 5h2v1h-2zm-1 1h4v4h-4zm-7 3h2v1H6zm18 0h2v1h-2zm-3 2H11v1h10zm-11 1h16v3H7zm3 4h12v1H10z'/><path fill='%23fff' d='M8 13h2v2H8zm14 0h2v2h-2z'/><path fill='%23000' d='M10 23h1v3h-1zm3 0h1v3h-1zm3 0h1v3h-1zm3 0h1v3h-1zm3 0h1v3h-1z'/></svg>",
     "compliant": true,
     "category": "arcade"
   }
 ]
+
