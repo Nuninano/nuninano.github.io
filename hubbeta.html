@@ -6,13 +6,7 @@
 <title>Nuninano</title>
 
 <!-- Favicon SVG -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%23000000'/%3E%3Cg stroke='%23FFFFFF' stroke-width='28' stroke-linecap='round' fill='none'%3E%3Cellipse cx='260' cy='256' rx='175' ry='205' transform='rotate(-18 260 256)'/%3E%3Cline x1='250' y1='120' x2='200' y2='230'/%3E%3Cline x1='310' y1='165' x2='260' y2='275'/%3E%3Cpath d='M 160 260 C 135 370, 220 400, 270 340'/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
-
-<!-- Configuración PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#181818">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect x='16' y='16' width='480' height='480' rx='108' fill='%23000000' stroke='%23333333' stroke-width='16'/%3E%3Cpath d='M 176 138 H 226 V 324 H 336 V 374 H 176 Z' fill='%2300ffd5'/%3E%3C/svg%3E" type="image/svg+xml">
 
 <style>
 :root {
@@ -107,16 +101,11 @@ header {
   gap: 8px;
 }
 
-.header-brand svg {
-  display: block;
-  flex-shrink: 0;
-}
-
 .header-title {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.8px;
-  color: var(--text-muted);
+  color: var(--text-main);
   text-transform: none;
 }
 
@@ -236,7 +225,6 @@ main {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 14px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   animation: slideUpFade 0.35s ease-out forwards;
@@ -272,10 +260,6 @@ main {
   gap: 8px;
 }
 
-.project-title svg {
-  flex-shrink: 0;
-}
-
 .project-version {
   font-size: 11px;
   color: var(--accent-color);
@@ -291,6 +275,22 @@ main {
   color: var(--text-muted);
   line-height: 1.5;
   margin: 0;
+}
+
+.tag-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
+  color: var(--text-btn);
+  border-radius: 4px;
+  font-weight: 500;
 }
 
 .project-footer {
@@ -344,35 +344,6 @@ main {
   justify-content: center;
   gap: 8px;
   opacity: 0.7;
-  min-height: 160px;
-}
-
-/* Animaciones copiadas del Editor LRC Pro */
-@keyframes modalBackdropFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes modalScaleUp {
-  from {
-    opacity: 0;
-    transform: scale(0.92) translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes slideUpFade {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Modal Configuración */
@@ -380,9 +351,8 @@ main {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   z-index: 200;
   align-items: center;
   justify-content: center;
@@ -394,7 +364,6 @@ main {
 .modal-overlay.open {
   display: flex;
   opacity: 1;
-  animation: modalBackdropFade 0.2s ease forwards;
 }
 
 .modal-card {
@@ -405,12 +374,6 @@ main {
   max-width: 380px;
   padding: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transform: scale(0.92);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.modal-overlay.open .modal-card {
-  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .modal-header {
@@ -569,6 +532,11 @@ input:checked + .slider:before { transform: translateX(18px); background-color: 
 
 .btn-danger { background: #991b1b; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 footer {
   text-align: center;
   padding: 20px;
@@ -577,24 +545,6 @@ footer {
   border-top: 1px solid var(--border-color);
   background: var(--bg-header);
   margin-top: auto;
-}
-
-/* Adaptación para Escritorio (PC) */
-@media (min-width: 900px) {
-  header {
-    padding: 16px 40px;
-  }
-  main {
-    max-width: 1000px;
-    padding: 40px 24px;
-  }
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .project-card {
-    padding: 22px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -609,15 +559,6 @@ footer {
 
 <header>
   <div class="header-brand">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
-      <rect width="512" height="512" rx="108" fill="#000000"/>
-      <g stroke="#FFFFFF" stroke-width="28" stroke-linecap="round" fill="none">
-        <ellipse cx="260" cy="256" rx="175" ry="205" transform="rotate(-18 260 256)"/>
-        <line x1="250" y1="120" x2="200" y2="230"/>
-        <line x1="310" y1="165" x2="260" y2="275"/>
-        <path d="M 160 260 C 135 370, 220 400, 270 340"/>
-      </g>
-    </svg>
     <span class="header-title">Nuninano</span>
   </div>
   <div class="header-actions">
@@ -653,17 +594,21 @@ footer {
         <div class="project-header">
           <div class="project-title-group">
             <h2 class="project-title">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="22" height="22">
-                <rect x="16" y="16" width="480" height="480" rx="108" fill="#000000" stroke="#333333" stroke-width="16"/>
-                <path d="M 176 138 H 226 V 324 H 336 V 374 H 176 Z" fill="#FFFFFF"/>
-              </svg>
               Editor LRC Pro
-              <span class="project-version">v5</span>
+              <span class="project-version">v1.0 Pro</span>
             </h2>
             <p class="project-desc">
               Editor y sincronizador avanzado de letras de canciones (.LRC) en tiempo real con inyección nativa de etiquetas e imágenes ID3v2 en archivos MP3, ajuste delta de tiempo y exportación instantánea.
             </p>
           </div>
+        </div>
+
+        <div class="tag-list">
+          <span class="tag">Web Application</span>
+          <span class="tag">Audio & Lyrics</span>
+          <span class="tag">LRC Sync</span>
+          <span class="tag">ID3v2 MP3 Tagging</span>
+          <span class="tag">Standalone HTML</span>
         </div>
 
         <div class="project-footer">
@@ -748,15 +693,6 @@ window.addEventListener("DOMContentLoaded", () => {
   loadAndApplySettings();
   checkAutoRedirectOnLoad();
 });
-
-// Registro del Service Worker para PWA
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('Service Worker registrado con éxito'))
-      .catch((err) => console.error('Error al registrar Service Worker:', err));
-  });
-}
 
 // Lógica del Selector Personalizado No Nativo (Extraído de Editor LRC Pro)
 function toggleCustomSelect(event) {
